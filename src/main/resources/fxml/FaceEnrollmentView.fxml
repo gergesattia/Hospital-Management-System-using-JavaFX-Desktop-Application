@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FaceEnrollmentController" spacing="20" alignment="CENTER" prefWidth="500" prefHeight="600" style="-fx-background-color: white; -fx-padding: 30;">
+    
+    <VBox alignment="CENTER" spacing="5">
+        <Label text="Staff Biometric Enrollment" style="-fx-font-size: 22px; -fx-font-weight: 800; -fx-text-fill: #334257;"/>
+        <Label fx:id="nameLabel" text="User Name" style="-fx-text-fill: #548CA8; -fx-font-weight: 600;"/>
+    </VBox>
+
+    <StackPane style="-fx-background-color: #F8F9FE; -fx-background-radius: 15; -fx-border-color: #D1D1D1; -fx-border-width: 1; -fx-border-radius: 15;">
+        <ImageView fx:id="cameraPreview" fitWidth="400" fitHeight="300" preserveRatio="true"/>
+    </StackPane>
+
+    <VBox spacing="10" alignment="CENTER">
+        <ProgressBar fx:id="progressBar" progress="0.0" maxWidth="Infinity" style="-fx-accent: #548CA8;"/>
+        <Label fx:id="statusLabel" text="Position face and click Start Capture" style="-fx-text-fill: #476072;"/>
+    </VBox>
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button fx:id="captureBtn" text="Start Capture" onAction="#handleStartCapture" prefWidth="150" style="-fx-background-color: #548CA8; -fx-text-fill: white; -fx-font-weight: 700; -fx-padding: 12; -fx-background-radius: 8; -fx-cursor: hand;"/>
+        <Button text="Cancel" onAction="#handleCancel" prefWidth="120" style="-fx-background-color: transparent; -fx-text-fill: #6C757D; -fx-border-color: #6C757D; -fx-border-width: 1; -fx-padding: 10; -fx-background-radius: 8; -fx-cursor: hand;"/>
+    </HBox>
+
+</VBox>

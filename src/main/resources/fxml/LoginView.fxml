@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.image.ImageView?>
+
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #EEEEEE;">
+    
+    <!-- Left Branding Section -->
+    <VBox alignment="CENTER" spacing="20" HBox.hgrow="ALWAYS" style="-fx-background-color: #334257;">
+        <padding>
+            <Insets bottom="40" left="40" right="40" top="40" />
+        </padding>
+        
+        <StackPane>
+            <Circle radius="50" fill="#548CA8" opacity="0.2"/>
+            <Label text="🏥" style="-fx-font-size: 48px;"/>
+        </StackPane>
+        
+        <Label text="MediCore" style="-fx-text-fill: white; -fx-font-size: 36px; -fx-font-weight: 800;"/>
+        <Label text="The heartbeat of your hospital management" style="-fx-text-fill: #ADB5BD; -fx-font-size: 16px; -fx-text-alignment: center;" wrapText="true"/>
+        
+        <VBox VBox.vgrow="ALWAYS" />
+        <Label text="© 2026 MediCore Systems" style="-fx-text-fill: #6C757D; -fx-font-size: 12px;"/>
+    </VBox>
+
+    <!-- Right Login Section -->
+    <VBox alignment="CENTER" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;">
+        <padding>
+            <Insets bottom="50" left="80" right="80" top="50" />
+        </padding>
+        
+        <StackPane>
+            <!-- Login Form -->
+            <VBox fx:id="loginForm" spacing="30" maxWidth="400" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 40; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                <VBox spacing="5">
+                    <Label text="Welcome Back" style="-fx-font-size: 28px; -fx-font-weight: 800; -fx-text-fill: #334257;"/>
+                    <Label text="Please enter your credentials to login" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                </VBox>
+                
+                <VBox spacing="20">
+                    <VBox spacing="8">
+                        <Label text="Username" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <TextField fx:id="usernameField" promptText="Enter your username" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12;"/>
+                    </VBox>
+                    
+                    <VBox spacing="8">
+                        <Label text="Password" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <PasswordField fx:id="passwordField" promptText="••••••••" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 12;"/>
+                    </VBox>
+                </VBox>
+                
+                <Label fx:id="errorLabel" style="-fx-text-fill: #E71D36; -fx-font-weight: bold;" wrapText="true" visible="false"/>
+                
+                <Button text="Sign In" onAction="#handleLogin" maxWidth="Infinity" style="-fx-background-color: #548CA8; -fx-text-fill: white; -fx-font-weight: 800; -fx-padding: 15; -fx-background-radius: 10; -fx-cursor: hand;"/>
+                
+                <HBox alignment="CENTER">
+                    <Hyperlink text="Forgot Password?" style="-fx-text-fill: #548CA8; -fx-font-size: 13px; -fx-font-weight: 600; -fx-underline: false;"/>
+                </HBox>
+            </VBox>
+
+            <!-- Biometric Verification View (Hidden Initially) -->
+            <VBox fx:id="biometricView" visible="false" spacing="25" alignment="CENTER" maxWidth="450" style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 40; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 20, 0, 0, 10);">
+                <VBox alignment="CENTER" spacing="5">
+                    <Label text="Biometric Verification" style="-fx-font-size: 24px; -fx-font-weight: 800; -fx-text-fill: #334257;"/>
+                    <Label fx:id="biometricStatusLabel" text="Please look directly at the camera" style="-fx-text-fill: #548CA8; -fx-font-weight: 600;"/>
+                </VBox>
+
+                <StackPane style="-fx-background-color: #F8F9FE; -fx-background-radius: 15; -fx-border-color: #D1D1D1; -fx-border-width: 1; -fx-border-radius: 15; -fx-overflow: hidden;">
+                    <ImageView fx:id="cameraPreview" fitWidth="320" fitHeight="240" preserveRatio="true"/>
+                </StackPane>
+
+                <HBox spacing="10">
+                    <Button text="Cancel" onAction="#handleCancelBiometric" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #E71D36; -fx-border-color: #E71D36; -fx-border-width: 1.5; -fx-padding: 12; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-weight: 700;"/>
+                    <Button text="Skip (Dev Mode)" onAction="#handleBypassBiometric" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: #F8F9FE; -fx-text-fill: #548CA8; -fx-border-color: #D1D1D1; -fx-border-width: 1.5; -fx-padding: 12; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-weight: 700;"/>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </VBox>
+</HBox>
+
+
+

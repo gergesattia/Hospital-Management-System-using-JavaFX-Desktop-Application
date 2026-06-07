@@ -1,0 +1,53 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+pom.xml.warBackup
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+.idea/
+*.iml
+*.iws
+.settings/
+.classpath
+.project
+.factorypath
+.vscode/
+
+# OS/System files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs
+*.log
+logs/
+telegram_bot.log
+
+# Python / Virtual Environment
+venv/
+.venv/
+ENV/
+env/
+**/venv/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Credentials / Secrets / Databases
+tokens/
+StoredCredential
+client_secret*.json
+*.db
+*.sqlite
+
+# Local Maven / External dependencies cached
+apache-maven-*/
+scratch/

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminManageUsersController" style="-fx-background-color: #EEEEEE;">
+    <top>
+        <HBox style="-fx-background-color: white; -fx-padding: 15 30; -fx-alignment: CENTER_LEFT; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 10, 0, 0, 4); -fx-border-color: #D1D1D1; -fx-border-width: 0 0 1 0;">
+            <Label text="User Management" style="-fx-font-size: 26px; -fx-font-weight: 800; -fx-text-fill: #334257;" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <Button text="Sign Out" onAction="#handleLogout" style="-fx-background-color: white; -fx-text-fill: #548CA8; -fx-padding: 10 20; -fx-background-radius: 10; -fx-cursor: hand; -fx-border-color: #548CA8; -fx-border-width: 1.5; -fx-font-weight: 600;"/>
+            </HBox>
+        </HBox>
+    </top>
+    <left>
+        <VBox style="-fx-background-color: #334257; -fx-padding: 30 15; -fx-spacing: 12; -fx-pref-width: 260;">
+            <Label text="MEDICORE" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: 800; -fx-padding: 0 0 20 5;"/>
+            <Button text="📊  Dashboard" onAction="#showDashboard" style="-fx-background-color: transparent; -fx-text-fill: #ADB5BD; -fx-font-size: 15px; -fx-font-weight: 500; -fx-alignment: CENTER_LEFT; -fx-padding: 12 25; -fx-max-width: 240; -fx-pref-width: 240; -fx-cursor: hand;"/>
+            <Button text="👥  User Management" onAction="#showManageUsers" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: 600; -fx-alignment: CENTER_LEFT; -fx-padding: 12 25; -fx-max-width: 240; -fx-pref-width: 240; -fx-background-radius: 4; -fx-cursor: hand;"/>
+            <Separator style="-fx-padding: 10 0; -fx-opacity: 0.1;"/>
+            <Button text="📤  Export Now" onAction="#handleExport" style="-fx-background-color: transparent; -fx-text-fill: #ADB5BD; -fx-font-size: 15px; -fx-font-weight: 500; -fx-alignment: CENTER_LEFT; -fx-padding: 12 25; -fx-max-width: 240; -fx-pref-width: 240; -fx-cursor: hand;"/>
+            <Button text="🤖  Ask AI (Beta)" onAction="#handleOpenAiChat" style="-fx-background-color: transparent; -fx-text-fill: #ADB5BD; -fx-font-size: 15px; -fx-font-weight: 500; -fx-alignment: CENTER_LEFT; -fx-padding: 12 25; -fx-max-width: 240; -fx-pref-width: 240; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+    <center>
+        <HBox style="-fx-padding: 30;" spacing="30">
+            <!-- Left Side: Table View -->
+            <VBox HBox.hgrow="ALWAYS" spacing="15" style="-fx-background-color: white; -fx-background-radius: 16; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 20, 0, 0, 8); -fx-border-color: #D1D1D1; -fx-border-width: 1;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="System Users" style="-fx-font-size: 18px; -fx-font-weight: 700; -fx-text-fill: #334257;" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <TextField fx:id="searchField" promptText="Search users..." prefWidth="250" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8;"/>
+                    <Button text="🔄" onAction="#loadUsers" style="-fx-background-color: transparent; -fx-border-color: #548CA8; -fx-text-fill: #548CA8; -fx-padding: 5 10; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                </HBox>
+                
+                <TableView fx:id="usersTable" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: transparent;">
+                    <columns>
+                        <TableColumn fx:id="idCol" text="ID" prefWidth="60"/>
+                        <TableColumn fx:id="nameCol" text="Full Name" prefWidth="180"/>
+                        <TableColumn fx:id="usernameCol" text="Username" prefWidth="120"/>
+                        <TableColumn fx:id="roleCol" text="Role" prefWidth="100"/>
+                        <TableColumn fx:id="specialtyCol" text="Specialty" prefWidth="140"/>
+                        <TableColumn fx:id="ssnCol" text="SSN" prefWidth="140"/>
+                        <TableColumn fx:id="emailCol" text="Email" prefWidth="160"/>
+                        <TableColumn fx:id="phoneCol" text="Phone" prefWidth="120"/>
+                        <TableColumn fx:id="salaryCol" text="Salary" prefWidth="100"/>
+                        <TableColumn fx:id="birthDateCol" text="Birth Date" prefWidth="100"/>
+                        <TableColumn fx:id="activeCol" text="Status" prefWidth="90"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <!-- Right Side: Form -->
+            <VBox spacing="20" minWidth="400" maxWidth="400" style="-fx-background-color: white; -fx-background-radius: 16; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 20, 0, 0, 8); -fx-border-color: #D1D1D1; -fx-border-width: 1;">
+                <Label text="User Details" style="-fx-font-size: 18px; -fx-font-weight: 700; -fx-text-fill: #334257;"/>
+                
+                <VBox spacing="15" VBox.vgrow="ALWAYS">
+                    <VBox spacing="5">
+                        <Label text="Full Name" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <TextField fx:id="fullNameField" promptText="Enter full name" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10;"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="National ID (SSN)" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <TextField fx:id="ssnField" promptText="14-digit National ID" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10;"/>
+                    </VBox>
+                    <HBox spacing="10">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Date of Birth" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                            <DatePicker fx:id="birthDatePicker" promptText="Select DOB" maxWidth="Infinity" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 5;"/>
+                        </VBox>
+                        <VBox fx:id="salaryContainer" spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Monthly Salary ($)" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                            <TextField fx:id="salaryField" promptText="e.g. 5000" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10;"/>
+                        </VBox>
+                    </HBox>
+                    <VBox fx:id="usernameContainer" spacing="5">
+                        <Label text="Username" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <TextField fx:id="usernameField" promptText="Choose username" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10;"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="Email Address" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <TextField fx:id="emailField" promptText="email@example.com" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10;"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="Phone Number" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <TextField fx:id="phoneField" promptText="+1 234..." style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10;"/>
+                    </VBox>
+                    <VBox fx:id="passwordContainer" spacing="5">
+                        <Label text="Password" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <PasswordField fx:id="passwordField" promptText="••••••••" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10;"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="System Role" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <ComboBox fx:id="roleBox" maxWidth="Infinity" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8;"/>
+                    </VBox>
+                    <VBox fx:id="specialtyContainer" spacing="5" visible="false" managed="false">
+                        <Label text="Specialization" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <TextField fx:id="specialtyField" promptText="e.g. Cardiology" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10;"/>
+                    </VBox>
+                    <VBox fx:id="consultationFeeContainer" spacing="5" visible="false" managed="false">
+                        <Label text="Consultation Fee ($)" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <TextField fx:id="consultationFeeField" promptText="e.g. 50" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10;"/>
+                    </VBox>
+                    <VBox fx:id="nurseDoctorContainer" spacing="5" visible="false" managed="false">
+                        <Label text="Assign to Doctor" style="-fx-text-fill: #476072; -fx-font-weight: 600;"/>
+                        <ComboBox fx:id="doctorBox" maxWidth="Infinity" promptText="Select Doctor" style="-fx-background-color: #F8F9FE; -fx-border-color: #D1D1D1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8;"/>
+                    </VBox>
+                </VBox>
+                
+                <VBox spacing="10">
+                    <HBox spacing="10">
+                        <Button text="Add User" onAction="#handleAdd" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: #548CA8; -fx-text-fill: white; -fx-font-weight: 800; -fx-padding: 12; -fx-background-radius: 10; -fx-cursor: hand;"/>
+                        <Button text="Update" onAction="#handleUpdate" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: white; -fx-text-fill: #548CA8; -fx-border-color: #548CA8; -fx-border-width: 1.5; -fx-padding: 10; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-weight: 700;"/>
+                    </HBox>
+                    <HBox spacing="10">
+                        <Button fx:id="toggleActiveBtn" text="Deactivate" onAction="#handleDeactivate" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #E71D36; -fx-border-color: #E71D36; -fx-border-width: 1.5; -fx-padding: 10; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-weight: 700;"/>
+                        <Button text="Delete" onAction="#handleDelete" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #E71D36; -fx-border-color: #E71D36; -fx-border-width: 1.5; -fx-padding: 10; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-weight: 700;"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>
+
+

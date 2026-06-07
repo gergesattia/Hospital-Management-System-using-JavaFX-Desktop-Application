@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminDashboardController" style="-fx-background-color: #EEEEEE;">
+    <top>
+        <HBox style="-fx-background-color: white; -fx-padding: 15 30; -fx-alignment: CENTER_LEFT; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 10, 0, 0, 4); -fx-border-color: #D1D1D1; -fx-border-width: 0 0 1 0;">
+            <Label text="Overview" style="-fx-font-size: 26px; -fx-font-weight: 800; -fx-text-fill: #334257;" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <Button text="Sign Out" onAction="#handleLogout" style="-fx-background-color: white; -fx-text-fill: #548CA8; -fx-padding: 10 20; -fx-background-radius: 10; -fx-cursor: hand; -fx-border-color: #548CA8; -fx-border-width: 1.5; -fx-font-weight: 600;"/>
+            </HBox>
+        </HBox>
+    </top>
+    <left>
+        <VBox style="-fx-background-color: #334257; -fx-padding: 30 15; -fx-spacing: 12; -fx-pref-width: 260;">
+            <Label text="MEDICORE" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: 800; -fx-padding: 0 0 20 5;"/>
+            <Button text="📊  Dashboard" onAction="#showDashboard" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: 600; -fx-alignment: CENTER_LEFT; -fx-padding: 12 25; -fx-max-width: 240; -fx-pref-width: 240; -fx-background-radius: 4; -fx-cursor: hand;"/>
+            <Button text="👥  User Management" onAction="#showManageUsers" style="-fx-background-color: transparent; -fx-text-fill: #ADB5BD; -fx-font-size: 15px; -fx-font-weight: 500; -fx-alignment: CENTER_LEFT; -fx-padding: 12 25; -fx-max-width: 240; -fx-pref-width: 240; -fx-cursor: hand;"/>
+            <Separator style="-fx-padding: 10 0; -fx-opacity: 0.1;"/>
+            <Button text="📤  Export Now" onAction="#handleExport" style="-fx-background-color: transparent; -fx-text-fill: #ADB5BD; -fx-font-size: 15px; -fx-font-weight: 500; -fx-alignment: CENTER_LEFT; -fx-padding: 12 25; -fx-max-width: 240; -fx-pref-width: 240; -fx-cursor: hand;"/>
+            <Button text="🤖  Ask AI (Beta)" onAction="#handleOpenAiChat" style="-fx-background-color: transparent; -fx-text-fill: #ADB5BD; -fx-font-size: 15px; -fx-font-weight: 500; -fx-alignment: CENTER_LEFT; -fx-padding: 12 25; -fx-max-width: 240; -fx-pref-width: 240; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+            <VBox fx:id="dashboardContent" spacing="30" style="-fx-padding: 30;">
+                
+                <!-- KPI Cards Section -->
+                <HBox spacing="25" alignment="CENTER">
+                    <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 16; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 15, 0, 0, 5); -fx-border-color: #D1D1D1; -fx-border-width: 1;">
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <StackPane style="-fx-background-color: rgba(84, 140, 168, 0.1); -fx-background-radius: 12; -fx-padding: 12;">
+                                <Label text="👨‍⚕️" style="-fx-font-size: 20px;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label text="Total Doctors" style="-fx-text-fill: #476072; -fx-font-size: 14px; -fx-font-weight: 600;"/>
+                                <Label fx:id="totalDoctorsLabel" text="0" style="-fx-text-fill: #334257; -fx-font-size: 28px; -fx-font-weight: 800;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 16; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 15, 0, 0, 5); -fx-border-color: #D1D1D1; -fx-border-width: 1;">
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <StackPane style="-fx-background-color: rgba(46, 196, 182, 0.1); -fx-background-radius: 12; -fx-padding: 12;">
+                                <Label text="🤒" style="-fx-font-size: 20px;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label text="Total Patients" style="-fx-text-fill: #476072; -fx-font-size: 14px; -fx-font-weight: 600;"/>
+                                <Label fx:id="totalPatientsLabel" text="0" style="-fx-text-fill: #334257; -fx-font-size: 28px; -fx-font-weight: 800;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 16; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 15, 0, 0, 5); -fx-border-color: #D1D1D1; -fx-border-width: 1;">
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <StackPane style="-fx-background-color: rgba(255, 159, 28, 0.1); -fx-background-radius: 12; -fx-padding: 12;">
+                                <Label text="📅" style="-fx-font-size: 20px;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label text="Appointments" style="-fx-text-fill: #476072; -fx-font-size: 14px; -fx-font-weight: 600;"/>
+                                <Label fx:id="totalAppointmentsLabel" text="0" style="-fx-text-fill: #334257; -fx-font-size: 28px; -fx-font-weight: 800;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 16; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 15, 0, 0, 5); -fx-border-color: #D1D1D1; -fx-border-width: 1;">
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <StackPane style="-fx-background-color: rgba(42, 157, 143, 0.1); -fx-background-radius: 12; -fx-padding: 12;">
+                                <Label text="💰" style="-fx-font-size: 20px;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label text="Total Revenue" style="-fx-text-fill: #476072; -fx-font-size: 14px; -fx-font-weight: 600;"/>
+                                <Label fx:id="revenueLabel" text="\$0.00" style="-fx-text-fill: #334257; -fx-font-size: 24px; -fx-font-weight: 800;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 16; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 15, 0, 0, 5); -fx-border-color: #D1D1D1; -fx-border-width: 1;">
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <StackPane style="-fx-background-color: rgba(231, 29, 54, 0.1); -fx-background-radius: 12; -fx-padding: 12;">
+                                <Label text="📈" style="-fx-font-size: 20px;"/>
+                            </StackPane>
+                            <VBox>
+                                <Label text="Total Profit" style="-fx-text-fill: #476072; -fx-font-size: 14px; -fx-font-weight: 600;"/>
+                                <Label fx:id="profitLabel" text="\$0.00" style="-fx-text-fill: #334257; -fx-font-size: 24px; -fx-font-weight: 800;"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Charts Area -->
+                <HBox spacing="25" VBox.vgrow="ALWAYS">
+                    <VBox HBox.hgrow="ALWAYS" spacing="15" style="-fx-background-color: white; -fx-background-radius: 16; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 20, 0, 0, 8); -fx-border-color: #D1D1D1; -fx-border-width: 1;">
+                        <Label text="Appointment Distribution" style="-fx-font-size: 18px; -fx-font-weight: 700; -fx-text-fill: #334257; -fx-padding: 0 0 10 0;"/>
+                        <PieChart fx:id="statusPieChart" VBox.vgrow="ALWAYS" legendVisible="false"/>
+                        <HBox fx:id="pieLegendBox" spacing="15" alignment="CENTER"/>
+                    </VBox>
+                    
+                    <VBox HBox.hgrow="ALWAYS" spacing="15" style="-fx-background-color: white; -fx-background-radius: 16; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 20, 0, 0, 8); -fx-border-color: #D1D1D1; -fx-border-width: 1;">
+                        <Label text="Doctor Specializations" style="-fx-font-size: 18px; -fx-font-weight: 700; -fx-text-fill: #334257; -fx-padding: 0 0 10 0;"/>
+                        <StackPane fx:id="fxglChartContainer" VBox.vgrow="ALWAYS" style="-fx-background-color: #f8f9fa; -fx-background-radius: 8;"/>
+                        <HBox fx:id="barLegendBox" spacing="15" alignment="CENTER"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
+
+
